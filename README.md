@@ -37,6 +37,7 @@ Run `cdk deploy`. This will deploy / redeploy your Stack to your AWS Account.
 ## How it works
 
 ### Post a message to the webhook
+
 ```shell
 curl --location --request POST 'https://<apigateway-id>.execute-api.us-west-2.amazonaws.com/v1/webhook' \
 --header 'Content-Type: application/json' \
@@ -46,8 +47,15 @@ curl --location --request POST 'https://<apigateway-id>.execute-api.us-west-2.am
 }'
 ```
 
+Note:
+
+- HTTP headers are propagated in attributes in SNS messages. Name of the attribute is `headers`.
+
 ### Receive notification inside AWS
-All messages received via the webhook will be published to SNS topic. The topic ARN is in CDK deployment output (`WebhookStack.snsTopicArn`):
+
+All messages received via the webhook will be published to SNS topic. The topic ARN is in CDK deployment
+output (`WebhookStack.snsTopicArn`):
+
 ```shell
 Outputs:
 WebhookStack.snsTopicArn = arn:aws:sns:us-west-2:<aws-account-id>:WebhookStack-WebhookTopic
